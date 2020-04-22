@@ -8,7 +8,7 @@ module.exports = function(app) {
     // ---------------------------------------------------------------------------
   
     app.get("/notes", function(req, res) {
-      res.sendFile(path.join(__dirname, "../notes.html"));
+      res.sendFile(path.join(__dirname, "../public/notes.html"));
     });
   
     // app.get("/reserve", function(req, res) {
@@ -17,7 +17,7 @@ module.exports = function(app) {
   
     // If no matching route is found default to home
     app.get("/", function(req, res) {
-      res.sendFile(path.join(__dirname, "../index.html"));
+      res.sendFile(path.join(__dirname, "../public/index.html"));
     });
   };
   

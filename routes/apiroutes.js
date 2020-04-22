@@ -6,13 +6,7 @@ var notes = require("../db.json");
 module.exports = function(app) {
 // Write api routes to export here
 app.post("/api/notes", function(req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    // fs.readFile(path.join(__dirname,'../../db/db.json'), (err, data) => {
-    //     if (err) throw err;
-    //     console.log('read from db',data);
-    //   });
-
+    
 
 
 
@@ -25,9 +19,29 @@ app.post("/api/notes", function(req, res) {
     notes.push(newNote);
     const data = JSON.stringify(notes)
     console.log('updated notes', data)
-    fs.writeFile('./db.json',data,  (err) => 
-    {if (err) throw err;
-    console.log('updated')})
+    fs.writeFile('./db.json',data,  (err) => {
+      if (err) throw err;
+      fs.readFile("./db.json", "utf8", function(error, note) {
+
+        if (error) {
+          return console.log(error);
+        }
+        var noteArray = JSON.parse(note);
+
+        
+
+        var i;
+        for (i = 0; i <= noteArray.length; i++){
+          noteArray[i].id = i++;
+        }
+
+        console.log('new note array',noteArray);
+
+        
+      
+      });
+      
+    })
   
     // We then display the JSON to the users
     
@@ -38,19 +52,19 @@ app.post("/api/notes", function(req, res) {
     res.json(notes);
 });
 
-app.delete("/api/notes/:id", function(req, res) {
-  var noteId = req.params.id;
+// app.delete("/api/notes/:id", function(req, res) {
+//   var noteId = req.params.id;
 
-  console.log(noteId);
+//   console.log(noteId);
 
-  for (var i = 0; i < characters.length; i++) {
-    if (chosen === characters[i].routeName) {
-      return res.json(characters[i]);
-    }
-  }
+//   for (var i = 0; i < characters.length; i++) {
+//     if (chosen === characters[i].routeName) {
+//       return res.json(characters[i]);
+//     }
+//   }
 
-  return res.json(false);
-});
+//   return res.json(false);
+// });
 
 
 

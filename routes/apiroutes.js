@@ -30,9 +30,10 @@ app.post("/api/notes", function(req, res) {
 
         
 
-        var i;
-        for (i = 0; i <= noteArray.length; i++){
-          noteArray[i].id = i++;
+        
+        for (var i = 0; i < noteArray.length; i++){
+          console.log(noteArray)
+          noteArray[i].id = i+1;
         }
 
         console.log('new note array',noteArray);
@@ -52,19 +53,15 @@ app.post("/api/notes", function(req, res) {
     res.json(notes);
 });
 
-// app.delete("/api/notes/:id", function(req, res) {
-//   var noteId = req.params.id;
+app.delete("/api/notes/:id", function(req, res) {
+  var id = req.params.id;
 
-//   console.log(noteId);
+  console.log(id);
 
-//   for (var i = 0; i < characters.length; i++) {
-//     if (chosen === characters[i].routeName) {
-//       return res.json(characters[i]);
-//     }
-//   }
-
-//   return res.json(false);
-// });
+  var deleteArray = noteArray.filter(noteArray => noteArray.id != id)
+  console.log(deleteArray)
+  
+});
 
 
 
